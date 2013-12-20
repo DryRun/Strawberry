@@ -1,0 +1,26 @@
+			<ul id="roster-ul" class="members-listing">
+				<li>
+					<ul class="member-info-ul" style="font-family: QuicksandBook, FuturaBook, sans serif; font-weight: 200; font-size: 1.1em">
+						<li class="member-info-name">
+							Name
+						</li>
+						<li class="member-info-gender">
+							Gender
+						</li>
+						<li class="member-info-division">
+							Division
+						</li>
+					</ul>
+				</li>
+				{{#each member in controller}}
+					<li class="horizontal-li">
+						<ul class="member-info-ul">
+							<li class="member-info-name">{{#link-to "member" member}}{{member.nameFormatted}}{{/link-to}}</li>
+							<li class="member-info-gender">{{member.gender}}</li>
+							<li class="member-info-division">Unknown</li>
+						</ul>
+					</li>
+				{{else}}
+					<li>No members found!</li>
+				{{/each}}
+			</ul>
