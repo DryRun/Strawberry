@@ -1,5 +1,8 @@
-App.IndexRoute = Em.Route.extend({
+App.IndexRoute = Ember.Route.extend({
 	redirect: function(){
 		this.transitionTo('members');
 	}
+	//setupController: function(controller) {
+	//	controller.set('title', "Strawberry");
+	//},
 });

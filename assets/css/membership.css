@@ -3,15 +3,17 @@
 /* Roster stuff
 /******************************************************************************/
 /******************************************************************************/
-div#roster-div { display: block; width: 600px; border-width: 1px; border-style: solid; border-radius: 3px; background: #FFFFFF; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px; padding: 0; font-family: "Oswald", "FuturaBook", sans-serif; font-size: 1em; }
+div#roster-div { display: block; width: 900px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px; padding: 0; font-family: "Oswald", "FuturaBook", sans-serif; font-size: 1em; }
 
-ul#roster-ul { width: 600px; border-radius: 3px; display: block; list-style: none; }
+div#roster-box { display: block; width: 440px; height: 600px; overflow: scroll; border-width: 1px; border-style: solid; border-radius: 3px; background: #FFFFFF; }
+
+ul#roster-ul { width: 440px; border-radius: 3px; display: block; list-style: none; }
 
 ul#roster-ul li.horizontal-li:nth-of-type(2n+1) { background: rgba(0, 0, 0, 0.05); }
 
 ul#roster-ul li.horizontal-li:nth-of-type(2n+2) { background: rgba(0, 0, 0, 0.15); }
 
-ul#roster-ul li { height: 36px; width: 600px; display: block; margin: 0; }
+ul#roster-ul li { height: 36px; width: 440px; display: block; margin: 0; }
 
 ul#roster-ul li.bg1 { background: rgba(0, 0, 0, 0.05); }
 
@@ -21,13 +23,11 @@ ul#roster-ul li:last-child { border-bottom-right-radius: 3px; border-bottom-left
 
 ul#roster-ul li ul.member-info-ul { display: block; vertical-align: middle; }
 
-ul#roster-ul li ul.member-info-ul li { display: inline block; margin: 0px; padding: 4px 2px 2px 2px; float: left; height: 30px; vertical-align: middle; line-height: 30px; font-family: "Oswald", sans-serif; font-weight: 300; font-size: 1.2em; }
+ul#roster-ul li ul.member-info-ul li { display: inline-block; margin: 0px; padding: 4px 2px 2px 2px; float: left; height: 30px; vertical-align: middle; line-height: 30px; font-family: "Oswald", sans-serif; font-weight: 300; font-size: 1.2em; }
 
-ul#roster-ul li ul.member-info-ul li.member-info-name { width: 302px; padding: 4px 2px 2px 20px; }
+ul#roster-ul li ul.member-info-ul li.member-info-name { width: 246px; padding: 4px 2px 2px 20px; }
 
-ul#roster-ul li ul.member-info-ul li.member-info-gender { width: 96px; text-align: center; }
-
-ul#roster-ul li ul.member-info-ul li.member-info-division { width: 136px; text-align: center; }
+ul#roster-ul li ul.member-info-ul li.member-info-division { width: 166px; text-align: center; }
 
 /* Screen for displaying results */
 div#screen { position: absolute; width: 100%; height: 100%; overflow: hidden; }
@@ -108,3 +108,11 @@ select.entry-select-short { width: 60px; }
 #membership-content-box ul.disc-marker li { list-style: disc inside; margin-left: 20px; }
 
 #club-address-box { font-family: "Oswald", sans-serif; font-weight: 400; font-size: 1.5em; text-align: center; display: block; width: 400px; margin-left: auto; margin-right: auto; }
+
+#member-info-box { display: block; width: 440px; }
+
+#member-info-box-interior { display: block; width: 438px; border: 1px solid black; border-radius: 3px; box-shadow: 0px 0px 20px #888888; background: white; }
+
+#modal-outlet { display: block; position: absolute; z-index: 2000; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 150px; width: 460px; height: 260px; padding: 20px 20px 20px 20px; border: 1px solid black; border-radius: 5px; box-shadow: 0px 0px 50px #222222; background: white; }
+
+.modal-outlet-off { display: none; }

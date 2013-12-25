@@ -1,0 +1,51 @@
+<div>
+<div id="modal-outlet">
+	<div class="floatright">
+		<button {{action "cancel"}}>X</button>
+	</div>
+	<div class="clearfloat"></div>
+	{{#if member}}
+		<h2>Edit Member Info</h2>
+	{{else}}
+		<h2>Add New Member</h2>
+	{{/if}}
+	<div>
+		<label>Username</label>
+		{{input value=handle name="handle"}}
+	</div>
+	<div>
+		<label>First</label>
+		{{input value=nameF name="nameF"}}
+		<label>Middle</label>
+		{{input value=nameM name="nameM"}}
+		<label>Last</label>
+		{{input value=nameL name="nameL"}}
+	</div>
+	<div>
+		<label>Gender</label>
+		{{view Ember.Select
+			content=controllers.members.genders
+			optionValuePath="content.value"
+			optionLabelPath="content.display"
+			name="gender"
+		}}
+	<div>
+		<label>Month</label>
+		{{view Ember.Select
+			content=controllers.members.months
+			optionValuePath="content.value"
+			optionLabelPath="content.display"
+			name="dobMonth"
+		}}
+		<label>Day</label>
+		{{input value="DD" name="dobDay"}}
+		<label>Year</label>
+		{{input value="YYYY" name="dobYear"}}
+	</div>
+	<div class="floatleft">
+		<button {{action "save"}}> Save </button>
+	</div>
+	<div class="clearfloat"></div>
+</div>
+</div>
+{{outlet}}

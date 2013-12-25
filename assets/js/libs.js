@@ -8,7 +8,7 @@
 /* 
  * Creates default users in the browser's localStorage so the demo doesn't look like shit
 */
-
+/*
 var defaultUsers = {
     "App.User":{
         "records":{
@@ -54,6 +54,7 @@ if (localStorage) {
 } else {
     throw new Error("Your browser doesn't seem to support localStorage, which is annoying for the purpose of this demo :P");
 }
+*/
 
 /*
 

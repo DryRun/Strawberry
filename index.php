@@ -38,14 +38,18 @@ All Rights Reserved
 				<div id="content-right-interior">
 				</div>
 			</div><!-- Close content -->
+			<div class="clearfloat" style="display: block;"></div>
 			<?php include "../../../php_includes/test/content-footer.php"; ?>
 		</div><!-- Close wrapper -->
 
 		<!-- Includes -->
+		<!--
 		<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="//builds.emberjs.com/handlebars-1.0.0.js"></script>
 		<script src="//builds.emberjs.com/tags/v1.1.2/ember.js"></script>
 		<script src="//builds.emberjs.com/tags/v1.0.0-beta.3/ember-data.js"></script>
+		-->
+		<script src="assets/js/libs.js"></script>
 		<script src="assets/js/templates.js"></script>
 		<script src="assets/js/app.js"></script>
 

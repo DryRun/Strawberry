@@ -1,26 +1,39 @@
-			<ul id="roster-ul" class="members-listing">
-				<li>
-					<ul class="member-info-ul" style="font-family: QuicksandBook, FuturaBook, sans serif; font-weight: 200; font-size: 1.1em">
-						<li class="member-info-name">
-							Name
-						</li>
-						<li class="member-info-gender">
-							Gender
-						</li>
-						<li class="member-info-division">
-							Division
-						</li>
-					</ul>
-				</li>
-				{{#each member in controller}}
-					<li class="horizontal-li">
-						<ul class="member-info-ul">
-							<li class="member-info-name">{{#link-to "member" member}}{{member.nameFormatted}}{{/link-to}}</li>
-							<li class="member-info-gender">{{member.gender}}</li>
-							<li class="member-info-division">Unknown</li>
+	<div id="membership-content-box">
+		<div id="content-right-title">
+			<h1>Roster</h1>
+		</div>
+		<div id="roster-div">
+			<div id="roster-box" class="floatleft">
+				<ul id="roster-ul" class="members-listing">
+					<li>
+						<ul class="member-info-ul" style="font-family: QuicksandBook, FuturaBook, sans serif; font-weight: 200; font-size: 1.1em">
+							<li class="member-info-name">
+								Name
+							</li>
+							<li class="member-info-division">
+								Division
+							</li>
 						</ul>
 					</li>
-				{{else}}
-					<li>No members found!</li>
-				{{/each}}
-			</ul>
+					{{#each member in controller}}
+						<li class="horizontal-li">
+							<ul class="member-info-ul">
+								<li class="member-info-name">{{#link-to "member" member}}{{member.nameFormatted}}{{/link-to}}</li>
+								<li class="member-info-division">
+									{{getAgeDivision member.dob}} {{getPrettyGender member.gender}}
+								</li>
+							</ul>
+						</li>
+					{{else}}
+						<li>No members found!</li>
+					{{/each}}
+				</ul>
+				{{#link-to "members.create" class="create-btn"}} New Member {{/link-to}}
+			</div>
+			<div id="member-info-box" class="floatright">
+				{{outlet}}
+			</div>
+			<div class="clearfloat"></div>
+			{{outlet modal}}
+		</div>
+	</div>

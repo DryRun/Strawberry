@@ -1,10 +1,11 @@
 App.Member = DS.Model.extend({
-	handle			: DS.attr(),
-	nameF			: DS.attr(),
-	nameM			: DS.attr(),
-	nameL			: DS.attr(),
-	dob				: DS.attr(),
-	gender			: DS.attr(),
+	username	: DS.attr(),
+	nameF		: DS.attr(),
+	nameM		: DS.attr(),
+	nameL		: DS.attr(),
+	dob			: DS.attr(),
+	gender		: DS.attr(),
+	current		: DS.attr(),
 	nameFormatted : function() {
 		return this.get("nameL") + ", " + this.get("nameF");
 	}.property("nameF", "nameL")
@@ -12,6 +13,7 @@ App.Member = DS.Model.extend({
 
 // These are fakes datas for the FixtureAdapter.
 // The FixtureAdapter lets you work with fake datas while in development stage.
+/*
 App.Member.FIXTURES = [
     {
 		id				: 1,
@@ -55,3 +57,4 @@ App.Member.FIXTURES = [
 		gender			: 'm',
     }
 ];
+*/

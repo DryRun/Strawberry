@@ -1,5 +1,9 @@
-<div id="member-overlay">
+<div id="member-info-box-interior">
+	<button {{action "edit"}}>Edit</button>
+	<button {{action "cancel"}}>X</button>
+
 	<h2>{{nameFormatted}}</h2>
-	<span>Gender: {{gender}}</span>
-	<span>DOB: {{dob}}</span>
+	<p>Division: {{getAgeDivision dob}} {{getPrettyGender gender}}</p>
 </div>
+
+{{outlet}}
