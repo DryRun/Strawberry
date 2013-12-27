@@ -1,9 +1,9 @@
 /* /helpers/getPrettyGender.js 
 */
 Ember.Handlebars.helper('getPrettyGender', function(gender){
-	if (gender == "m") {
+	if (gender == "M") {
 		return "Men";
-	} else if (gender == "f") {
+	} else if (gender == "F") {
 		return "Women";
 	}
 });
