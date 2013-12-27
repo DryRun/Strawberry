@@ -16,19 +16,25 @@
 						</ul>
 					</li>
 					{{#each member in controller}}
-						<li class="horizontal-li">
-							<ul class="member-info-ul">
-								<li class="member-info-name">{{#link-to "member" member}}{{member.nameFormatted}}{{/link-to}}</li>
-								<li class="member-info-division">
-									{{getAgeDivision member.dob}} {{getPrettyGender member.gender}}
-								</li>
-							</ul>
-						</li>
+						{{#if member.display}}
+							<li class="horizontal-li">
+								<ul class="member-info-ul">
+									<li class="member-info-name">{{#link-to "member" member}}{{member.nameFormatted}}{{/link-to}}</li>
+									<li class="member-info-division">
+										{{getAgeDivision member.dob}} {{getPrettyGender member.gender}}
+									</li>
+								</ul>
+							</li>
+						{{/if}}
 					{{else}}
 						<li>No members found!</li>
 					{{/each}}
 				</ul>
-				{{#link-to "members.create" class="create-btn"}} New Member {{/link-to}}
+				<div style="display: block">
+					<button {{action "create"}}>New Member</button>
+
+					<p>Don't see yourself? Click the button above, or send a message to our <a href="http://strawberrycanyontc.org/clubinfo/contact.php">contact form</a>, including your name and birthday.</p>
+				</div>
 			</div>
 			<div id="member-info-box" class="floatright">
 				{{outlet}}

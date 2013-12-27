@@ -1,4 +1,9 @@
 App.MembersController = Ember.ArrayController.extend({
+    actions: {
+        create: function(){
+            this.transitionToRoute('members.create');
+       }
+    },
 	sortProperties: ['nameL'],
 	sortAscending: true, // false = descending
 	membersCount: function(){
@@ -19,7 +24,7 @@ App.MembersController = Ember.ArrayController.extend({
 		{display: "12 - December", value: 12}
     ],
     genders : [
-		{display: "Female", value: "f"},
-		{display: "Male", value: "m"}
+		{display: "Female", value: "F"},
+		{display: "Male", value: "M"}
     ]
 });

@@ -1,5 +1,5 @@
-App.UserRoute = Ember.Route.extend({
+App.MemberRoute = Ember.Route.extend({
     model: function(params){
-        return this.store.find('member', params.username);
+        return this.store.find('member', params.id);
     },
 });

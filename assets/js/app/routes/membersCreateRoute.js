@@ -4,7 +4,16 @@ App.MembersCreateRoute = Ember.Route.extend({
 		return Ember.Object.create({});
 	},
 	renderTemplate: function(){
-		this.render({outlet: 'modal' });
+		this.render('membersCreate', {
+			controller: 'membersCreate',
+			outlet: 'modal'
+		});
+		/*
+		this.render('member.edit', {
+			controller: 'membersCreate',
+			outlet: 'modal'
+		});
+*/
 	}
 
 	// in this case (the create route) we can re-use the member/edit template

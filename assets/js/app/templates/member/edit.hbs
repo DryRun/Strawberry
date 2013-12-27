@@ -4,15 +4,15 @@
 		<button {{action "cancel"}}>X</button>
 	</div>
 	<div class="clearfloat"></div>
-	{{#if member}}
+	{{#if member.nameF}}
 		<h2>Edit Member Info</h2>
 	{{else}}
 		<h2>Add New Member</h2>
 	{{/if}}
-	<div>
+	<!--<div>
 		<label>Username</label>
-		{{input value=handle name="handle"}}
-	</div>
+		{{input value=username name="username"}}
+	</div>-->
 	<div>
 		<label>First</label>
 		{{input value=nameF name="nameF"}}
@@ -28,7 +28,9 @@
 			optionValuePath="content.value"
 			optionLabelPath="content.display"
 			name="gender"
+			value=gender
 		}}
+	</div>
 	<div>
 		<label>Month</label>
 		{{view Ember.Select
@@ -36,12 +38,17 @@
 			optionValuePath="content.value"
 			optionLabelPath="content.display"
 			name="dobMonth"
+			value=intDobMonth
 		}}
 		<label>Day</label>
-		{{input value="DD" name="dobDay"}}
+		{{input value=intDobDay name="dobDay"}}
 		<label>Year</label>
-		{{input value="YYYY" name="dobYear"}}
+		{{input value=intDobYear name="dobYear"}}
 	</div>
+	<div id="recaptcha-box">
+	</div>
+	<div id="create-member-output-box"></div>
+
 	<div class="floatleft">
 		<button {{action "save"}}> Save </button>
 	</div>

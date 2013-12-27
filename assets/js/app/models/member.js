@@ -6,9 +6,29 @@ App.Member = DS.Model.extend({
 	dob			: DS.attr(),
 	gender		: DS.attr(),
 	current		: DS.attr(),
+
 	nameFormatted : function() {
 		return this.get("nameL") + ", " + this.get("nameF");
-	}.property("nameF", "nameL")
+	}.property("nameF", "nameL"),
+
+	display : function() {
+		return this.get("current") == 1;
+	}.property("current"),
+
+	getMonth : function() {
+		date = moment(this.get("dob"));
+		return parseInt(date.format("M"), 10);
+	}.property("dob"),
+
+	getDay : function() {
+		date = moment(this.get("dob"));
+		return date.format("D");
+	}.property("dob"),
+
+	getYear : function() {
+		date = moment(this.get("dob"));
+		return date.format("YYYY");
+	}.property("dob"),
 });
 
 // These are fakes datas for the FixtureAdapter.

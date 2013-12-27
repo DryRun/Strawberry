@@ -3,11 +3,11 @@
 /* Roster stuff
 /******************************************************************************/
 /******************************************************************************/
-div#roster-div { display: block; width: 900px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px; padding: 0; font-family: "Oswald", "FuturaBook", sans-serif; font-size: 1em; }
+div#roster-div { display: block; width: 900px; height: 775px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px; padding: 0; font-family: "Oswald", "FuturaBook", sans-serif; font-size: 1em; }
 
-div#roster-box { display: block; width: 440px; height: 600px; overflow: scroll; border-width: 1px; border-style: solid; border-radius: 3px; background: #FFFFFF; }
+div#roster-box { display: block; width: 440px; height: 750px; background: #FFFFFF; }
 
-ul#roster-ul { width: 440px; border-radius: 3px; display: block; list-style: none; }
+ul#roster-ul { width: 440px; height: 600px; border-width: 1px; border-style: solid; border-radius: 3px; overflow: scroll; border-radius: 3px; display: block; list-style: none; }
 
 ul#roster-ul li.horizontal-li:nth-of-type(2n+1) { background: rgba(0, 0, 0, 0.05); }
 
@@ -113,6 +113,6 @@ select.entry-select-short { width: 60px; }
 
 #member-info-box-interior { display: block; width: 438px; border: 1px solid black; border-radius: 3px; box-shadow: 0px 0px 20px #888888; background: white; }
 
-#modal-outlet { display: block; position: absolute; z-index: 2000; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 150px; width: 460px; height: 260px; padding: 20px 20px 20px 20px; border: 1px solid black; border-radius: 5px; box-shadow: 0px 0px 50px #222222; background: white; }
+#modal-outlet { display: block; position: absolute; z-index: 2000; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 150px; width: 600px; height: 400px; padding: 20px 20px 20px 20px; border: 1px solid black; border-radius: 5px; box-shadow: 0px 0px 50px #222222; background: white; }
 
 .modal-outlet-off { display: none; }

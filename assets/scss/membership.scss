@@ -7,6 +7,7 @@
 div#roster-div{
 	display: block;
 	width: 900px;
+	height: 775px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
@@ -19,16 +20,17 @@ div#roster-div{
 div#roster-box {
 	display: block;
 	width: 440px;
-	height: 600px;
-	overflow: scroll;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 3px;
+	height: 750px;
 	background: #FFFFFF;
 }
 
 ul#roster-ul {
 	width: 440px;
+	height: 600px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	overflow: scroll;
 	border-radius: 3px;
 	display: block;
 	list-style: none;
@@ -315,8 +317,8 @@ div#results-box {
 	margin-left: auto;
 	margin-right: auto;
 	top: 150px;
-	width: 460px;
-	height: 260px;
+	width: 600px;
+	height: 400px;
 	padding: 20px 20px 20px 20px;
 	border: 1px solid black;
 	border-radius: 5px;

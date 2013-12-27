@@ -31,6 +31,11 @@ App.MemberEditController = Ember.ObjectController.extend({
 });
 
 App.MembersController = Ember.ArrayController.extend({
+    actions: {
+        create: function(){
+            this.transitionToRoute('members.create');
+       }
+    },
 	sortProperties: ['nameL'],
 	sortAscending: true, // false = descending
 	membersCount: function(){
@@ -51,8 +56,8 @@ App.MembersController = Ember.ArrayController.extend({
 		{display: "12 - December", value: 12}
     ],
     genders : [
-		{display: "Female", value: "f"},
-		{display: "Male", value: "m"}
+		{display: "Female", value: "F"},
+		{display: "Male", value: "M"}
     ]
 });
 
@@ -60,18 +65,57 @@ App.MembersCreateController = Ember.ObjectController.extend({
 	needs: "members",
 	actions: {
 		save: function () {
-			// save and commit
-			var newMember = this.store.createRecord('member', this.get('model'));
-			newMember.save();
+			// Check captcha
+			var dataString    = "challenge=" + Recaptcha.get_challenge() + "&response=" + Recaptcha.get_response();
+			var proceedToSave = false;
 
-			// redirects to the member itself
-			this.transitionToRoute('member', newMember);
+			// Fill in computed properties of the model
+			var saveDobDay    = this.intDobDay;
+			var saveDobMonth  = this.intDobMonth;
+			var saveDobYear   = this.intDobYear;
+			dobMoment = moment(saveDobYear.toString() + "-" + saveDobMonth.toString() + "-" + saveDobDay.toString());
+			var saveNameF     = this.get("model").nameF;
+			var saveNameM     = this.get("model").nameM;
+			var saveNameL     = this.get("model").nameL;
+			
+			this.setProperties({
+				dob      : dobMoment.format("YYYY-MM-DD"),
+				username : saveNameF + saveNameM + saveNameL,
+				current  : 0, // Do not show member in roster until approved by admin.
+			});
+
+			var newMember = this.store.createRecord('member', this.get('model'));
+
+			Ember.$.ajax('/ember/Strawberry/assets/php/verifyRecaptcha.php', {
+				type: 'GET',
+				data: dataString,
+			}).then(function(response) {
+				if (response != "success") {
+					jQuery("#create-member-output-box").html(response);
+				} else {
+					// Save and commit
+					newMember.save();
+					jQuery("#create-member-output-box").html("Member " + saveNameF + " " + saveNameL + " added! Awaiting administrator approval.");
+				}
+			});
+			//this.transitionToRoute('member', newMember);
 		},
 		cancel: function(){
 			this.transitionToRoute('members');
 		}
-
 	},
+	intDobDay: 01,
+	intDobMonth: 1,
+	intDobYear: 1900,
+});
+
+/* /helpers/createRecaptcha.js 
+*/
+Ember.Handlebars.helper('createRecaptcha', function(){
+	Recaptcha.create("6LdJCNQSAAAAAJ7Q7wRcIiwM0de0Rz3K7POYanNj", "recaptcha-box", {
+		theme: "red",
+		callback: Recaptcha.focus_response_field
+	});
 });
 
 /* /helpers/stripes.js 
@@ -109,14 +153,32 @@ Ember.Handlebars.helper('getAgeDivision', function(birthDate){
 	}
 });
 
+/* /helpers/getDay.js 
+*/
+Ember.Handlebars.helper('getDay', function(dob){
+	return moment(dob).format("D");
+});
+
+/* /helpers/getMonth.js 
+*/
+Ember.Handlebars.helper('getMonth', function(dob){
+	return moment(dob).format("MMMM");
+});
+
 /* /helpers/getPrettyGender.js 
 */
 Ember.Handlebars.helper('getPrettyGender', function(gender){
-	if (gender == "m") {
+	if (gender == "M") {
 		return "Men";
-	} else if (gender == "f") {
+	} else if (gender == "F") {
 		return "Women";
 	}
+});
+
+/* /helpers/getYear.js 
+*/
+Ember.Handlebars.helper('getYear', function(dob){
+	return moment(dob).format("YYYY");
 });
 
 /* /helpers/stripes.js 
@@ -150,9 +212,29 @@ App.Member = DS.Model.extend({
 	dob			: DS.attr(),
 	gender		: DS.attr(),
 	current		: DS.attr(),
+
 	nameFormatted : function() {
 		return this.get("nameL") + ", " + this.get("nameF");
-	}.property("nameF", "nameL")
+	}.property("nameF", "nameL"),
+
+	display : function() {
+		return this.get("current") == 1;
+	}.property("current"),
+
+	getMonth : function() {
+		date = moment(this.get("dob"));
+		return parseInt(date.format("M"), 10);
+	}.property("dob"),
+
+	getDay : function() {
+		date = moment(this.get("dob"));
+		return date.format("D");
+	}.property("dob"),
+
+	getYear : function() {
+		date = moment(this.get("dob"));
+		return date.format("YYYY");
+	}.property("dob"),
 });
 
 // These are fakes datas for the FixtureAdapter.
@@ -207,7 +289,7 @@ App.Member.FIXTURES = [
 */
 App.Router.map(function(){
 	this.resource('members', function(){
-		this.resource('member', { path:'/:handle' }, function(){
+		this.resource('member', { path:'/:id' }, function(){
 			this.route('edit');
 		});
 		this.route('create');
@@ -235,9 +317,9 @@ App.MemberEditRoute = Ember.Route.extend({
 	}
 });
 
-App.UserRoute = Ember.Route.extend({
+App.MemberRoute = Ember.Route.extend({
     model: function(params){
-        return this.store.find('member', params.username);
+        return this.store.find('member', params.id);
     },
 });
 
@@ -247,7 +329,16 @@ App.MembersCreateRoute = Ember.Route.extend({
 		return Ember.Object.create({});
 	},
 	renderTemplate: function(){
-		this.render({outlet: 'modal' });
+		this.render('membersCreate', {
+			controller: 'membersCreate',
+			outlet: 'modal'
+		});
+		/*
+		this.render('member.edit', {
+			controller: 'membersCreate',
+			outlet: 'modal'
+		});
+*/
 	}
 
 	// in this case (the create route) we can re-use the member/edit template
@@ -290,4 +381,14 @@ App.Store = DS.Store.extend({
 DS.RESTAdapter.reopen({
   url: "http://www.strawberrycanyontc.org/",
   namespace: 'ember/Strawberry/membersAccess'
+});
+
+App.MembersCreateView = Ember.View.extend({
+    templateName: 'member/edit',
+    didInsertElement: function() {
+      Recaptcha.create("6LdJCNQSAAAAAJ7Q7wRcIiwM0de0Rz3K7POYanNj", "recaptcha-box", {
+        theme: "red",
+        callback: Recaptcha.focus_response_field
+      });
+    }
 });
