@@ -38,7 +38,7 @@ All Rights Reserved
 				<div id="content-right-interior">
 				</div>
 			</div><!-- Close content -->
-			<div class="clearfloat" style="display: block;"></div>
+			<div class="clearfloat" style="display: block; height: 1px; width: 200px;"></div>
 			<?php include "../../../php_includes/test/content-footer.php"; ?>
 		</div><!-- Close wrapper -->
 
@@ -49,6 +49,7 @@ All Rights Reserved
 		<script src="//builds.emberjs.com/tags/v1.1.2/ember.js"></script>
 		<script src="//builds.emberjs.com/tags/v1.0.0-beta.3/ember-data.js"></script>
 		-->
+		<script type="text/javascript" src="https://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 		<script src="assets/js/libs.js"></script>
 		<script src="assets/js/templates.js"></script>
 		<script src="assets/js/app.js"></script>

@@ -76,7 +76,7 @@ class PHPRestSQL {
      * Type of display, database, table or row.
      */
     var $display = NULL;
-    
+
     /**
      * Constructor. Parses the configuration file "phprestsql.ini", grabs any request data sent, records the HTTP
      * request method used and parses the request URL to find out the requested table name and primary key values.
@@ -313,7 +313,7 @@ class PHPRestSQL {
             if ($this->requestData) {
                 $primary = $this->getPrimaryKeys();
                 if ($primary && count($primary) == count($this->uid)) { // update a row
-                    $pairs = $this->parseRequestData();
+                    $pairs = $this->parseRequestDataJSON();
                     $values = '';
                     foreach ($pairs as $column => $data) {
                         $values .= '`'.$column.'` = "'.$this->db->escape($data).'", ';
@@ -354,13 +354,29 @@ class PHPRestSQL {
             }
         } elseif ($this->table) { // insert a row without a uid
             if ($this->requestData) {
-                $pairs = $this->parseRequestData();
+                $data = $this->parseRequestDataJSON();
+                // Discard top level of array, which is just the model name
+                foreach ($data as $currentModelName => $currentModelData) {
+                    $modelName = $currentModelName;
+                    $pairs = $currentModelData;
+                    break;
+                }
                 $values = join('", "', $pairs);
                 $names = join('`, `', array_keys($pairs));
                 $resource = $this->db->insertRow($this->table, $names, $values);
                 if ($resource) {
                     if ($this->db->numAffected() > 0) {
-						$this->created($this->config['settings']['baseURL'].'/'.$this->table.'/'.$this->db->lastInsertId().'/');
+						$url = $this->config['settings']['baseURL'].'/'.$this->table.'/'.$this->db->lastInsertId().'/';
+                        // Return new entry
+                        header('HTTP/1.0 201 Created');
+                        header('Location: '.$url);
+                        header('Content-Type: application/json');
+                       // Add id to data
+                        $pairs["id"] = $this->db->lastInsertId();
+                        // Add model name
+                        $returnVal = array();
+                        $returnVal[$modelName] = $pairs;
+                        print(json_encode($returnVal));
                     } else {
                         $this->badRequest();
                     }
@@ -380,6 +396,9 @@ class PHPRestSQL {
      * request body.
      */
     function put() {
+        echo "put not yet implemented";
+        return;
+        /*
         if ($this->table && $this->uid) {
             if ($this->requestData) {
                 $primary = $this->getPrimaryKeys();
@@ -449,12 +468,16 @@ class PHPRestSQL {
         } else {
             $this->methodNotAllowed('GET, HEAD');
         }
+        */
     }
 	
     /**
      * Execute a DELETE request. A DELETE request removes a row from the database given a table and primary key(s).
      */
     function delete() {
+        echo "Delete not yet implemented";
+        return;
+        /*
         if ($this->table && $this->uid) {
             $primary = $this->getPrimaryKeys();
             if ($primary && count($primary) == count($this->uid)) { // delete a row
@@ -479,6 +502,7 @@ class PHPRestSQL {
         } else {
             $this->methodNotAllowed('GET, HEAD');
         }
+        */
     }
     
     /**
@@ -495,6 +519,14 @@ class PHPRestSQL {
             }
         }
         return $values;
+    }
+
+    /**
+     * Parse the HTTP request data as JSON
+     * @return  array json_decoded array
+     */
+    function parseRequestDataJSON() {
+        return json_decode($this->requestData, true);
     }
     
     /**
